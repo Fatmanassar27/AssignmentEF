@@ -32,7 +32,7 @@ namespace Demo.Migrations
 
                     b.HasKey("DepartmentsId");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("Demo.Entities.Employee", b =>
@@ -67,7 +67,7 @@ namespace Demo.Migrations
 
                     b.HasKey("EmpId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("Demo.Entities.Products", b =>
@@ -80,7 +80,7 @@ namespace Demo.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Demo.Entities.Projects", b =>
@@ -93,7 +93,7 @@ namespace Demo.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 #pragma warning restore 612, 618
         }

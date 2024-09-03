@@ -11,5 +11,9 @@ namespace Assignment.Entities
         public int stud_ID { get; set; }
         public int Course_ID { get; set; }
         public int Grade { get; set; }
+
+        public Student Student { get; set; }
+        public Course Course { get; set; }
+
     }
 }

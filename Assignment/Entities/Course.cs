@@ -19,6 +19,10 @@ namespace Assignment.Entities
         [Column(TypeName = "varchar")]
         public string? Name { get; set; }
         public string? Description { get; set; }
+        [ForeignKey("Topic")]
         public int Top_ID { get; set; }
+        public Topic Topic { get; set; }
+        public ICollection<Stud_Course>? StudentCourses { get; set; } = new HashSet<Stud_Course>();
+        public ICollection<Course_Inst>? course_Insts { get; set; } = new HashSet<Course_Inst>();
     }
 }
