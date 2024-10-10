@@ -1,13 +1,13 @@
 ﻿using Assignment.Contexts;
 using Assignment.Entities;
-
+using Microsoft.EntityFrameworkCore;
 namespace Assignment
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            itiDbContext ItI = new itiDbContext();
+            using itiDbContext ItI   = new itiDbContext();
             Student student01 = new Student()
             {
                 FName = "Ahmed",
@@ -33,7 +33,8 @@ namespace Assignment
             {
                 Name = "Backend",
                 Description = "Web Devolobment",
-                Duration = 40
+                Duration = 40,
+                Top_ID = 80 
             };
             Topic topic01 = new Topic()
             {
@@ -52,24 +53,64 @@ namespace Assignment
             //ItI.Add<Student>(student02);
             //ItI.Add<Student>(student03);
             //ItI.Add<Course>(course01);
-            //ItI.Add<Topic>(topic01);
             //ItI.Add<Instructor>(instructor01);
+            //ItI.Add<Topic>(topic01);
             //ItI.SaveChanges();
 
-            //Console.WriteLine(ItI.Entry(topic01).State);
 
-            //var student = (from s in ItI.Student
-            //               where s.ID < 3
-            //               select s).FirstOrDefault();
-            ////Console.WriteLine(ItI.Entry(student).State);
-            ////student.FName = "Mohamed";
-            ////Console.WriteLine(student?.FName ?? "Not Found");
-            ////ItI.Student.Remove(student);
-            ////Console.WriteLine(ItI.Entry(student).State);
-            //ItI.SaveChanges();
-            //Console.WriteLine(ItI.Entry(student).State); 
             #endregion
 
+            #region Explicit loading 
+            //var student = (from s in ItI.Student
+            //               where s.ID == 25
+            //               select s).FirstOrDefault();
+            //ItI.Entry(student).Reference(D => D.Department).Load();
+            ////Console.WriteLine($"{student?.FName ?? "Not Found"} :: {student?.Department?.Name ?? "Not Found"}");
+
+            //var department = (from d in ItI.Departments
+            //                  where d.ID == 1
+            //                  select d).FirstOrDefault();
+
+            //ItI.Entry(department).Collection(D => D.StudentsDepartment).Load();
+            //foreach (var item in department.StudentsDepartment)
+            //{
+            //    Console.WriteLine($"{item?.FName ?? "Not Found"} :: {item?.Department?.Name ?? "Not Found"}");
+            //}
+            #endregion
+
+            #region eager loading 
+            //var student = (from s in ItI.Student.Include(s => s.Department)
+            //               where s.ID == 25
+            //               select s).FirstOrDefault();
+
+            //Console.WriteLine($"{student?.FName ?? "Not Found"} :: {student?.Department?.Name ?? "Not Found"}");
+
+            //var department = (from d in ItI.Departments.Include( d=> d.StudentsDepartment)
+            //                  where d.ID == 1
+            //                  select d).FirstOrDefault();
+
+            //foreach (var item in department.StudentsDepartment)
+            //{
+            //    Console.WriteLine($"{item?.FName ?? "Not Found"} :: {item?.Department?.Name ?? "Not Found"}");
+            //}
+            #endregion
+
+            #region lazy loading
+            //var student = (from s in ItI.Student
+            //               where s.ID == 25
+            //               select s).FirstOrDefault();
+
+            //Console.WriteLine($"{student?.FName ?? "Not Found"} :: {student?.Department?.Name ?? "Not Found"}");
+
+            //var department = (from d in ItI.Departments
+            //                  where d.ID == 1
+            //                  select d).FirstOrDefault();
+
+            //foreach (var item in department.StudentsDepartment)
+            //{
+            //    Console.WriteLine($"{item?.FName ?? "Not Found"} :: {item?.Department?.Name ?? "Not Found"}");
+            //}
+            #endregion
         }
     }
 }

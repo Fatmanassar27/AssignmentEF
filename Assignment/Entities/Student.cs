@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Assignment.Entities
 {
-    internal class Student
+    public class Student
     {
         public int ID { get; set; }
         public string? FName { get; set; }
@@ -16,7 +16,7 @@ namespace Assignment.Entities
         public int? Age { get; set; }
         [ForeignKey(nameof(Department))]
         public int? Dep_Id{ get; set; }
-        public Department Department { get; set; }
-        public ICollection<Stud_Course>? StudentCourses { get; set; } = new HashSet<Stud_Course>();
+        public virtual Department Department { get; set; }
+        public virtual ICollection<Stud_Course>? StudentCourses { get; set; } = new HashSet<Stud_Course>();
     }
 }

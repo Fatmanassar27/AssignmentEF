@@ -27,7 +27,7 @@ namespace Assignment.Contexts
                  .HasDefaultValue(" ")
                  .HasMaxLength(100);
                 D.Property(D => D.HiringDate)
-                 .HasColumnType("DateTime");
+                 .HasDefaultValueSql("GETDATE()");
             }
             );
             modelBuilder.Entity<Instructor>( I =>
@@ -43,14 +43,16 @@ namespace Assignment.Contexts
                 modelBuilder.Entity<Instructor>().Property(I => I.Bouns)
                                                  .HasDefaultValue(0);
             }
+
             );
             base.OnModelCreating(modelBuilder);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server = . ; Database = iti ; Trusted_Connection = true");
+            optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server = . ; Database = iti ; Trusted_Connection = true ; trustServerCertificate = true",X => X.UseDateOnlyTimeOnly());
         }
         public DbSet<Student> Student { get; set; }
+        public DbSet<Department> Departments { get; set; }
         public DbSet<Course> Course { get; set; }
 
     }

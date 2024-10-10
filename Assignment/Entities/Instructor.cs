@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Assignment.Entities
 {
-    internal class Instructor
+    public class Instructor
     {
        public int ID { get; set; }
        public string? Name { get; set; }
@@ -18,9 +18,9 @@ namespace Assignment.Entities
        [ForeignKey(nameof(Department))]
        public int? Dept_ID { get; set; }
        [InverseProperty(nameof(Entities.Department.Instructors))]
-       public Department? Department { get; set; }
+        public virtual Department? Department { get; set; }
        [InverseProperty(nameof(Entities.Department.Manager))]
-        public Department? Manage { get; set; }
-        public ICollection<Course_Inst>? course_Insts { get; set; } = new HashSet<Course_Inst>();
+        public virtual Department? Manage { get; set; }
+        public virtual ICollection<Course_Inst>? course_Insts { get; set; } = new HashSet<Course_Inst>();
     }
 }
